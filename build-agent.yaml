@@ -36,10 +36,10 @@ spec:
   volumes:
     - name: m2
       persistentVolumeClaim:
-        claimName: pvc-m2
+        claimName: m2-pvc
     - name: docker-sock
-      persistentVolumeClaim:
-        claimName: pvc-docker-sock
+      hostPath:
+        path: /var/run
     - name: trivycache
       persistentVolumeClaim:
-        claimName: pvc-trivycache
+        claimName: trivycache-pvc
