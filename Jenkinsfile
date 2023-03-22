@@ -85,8 +85,4 @@ pipeline {
     PC_USER = '81c2fe59-72a3-4e55-bb1d-9cff8ecc7bb7'
     PC_PASSWORD = 'TffwVyMCuNGC/byo68KCYQzUOW0='
   }
-  options {
-        preserveStashes()
-        timestamps()
-    }
 }
