@@ -7,6 +7,30 @@ pipeline {
     }
 
   }
+  stage('Checkout') {
+          steps {
+              git branch: 'master', url: ''https://github.com/billhoph/dso-demo''
+              stash includes: '**/*', name: 'source'
+          }
+        }
+  stage('Checkov') {
+      steps {
+          withCredentials([string(credentialsId: 'PC_USER', variable: 'pc_user'),string(credentialsId: 'PC_PASSWORD', variable: 'pc_password')]) {
+              script {
+                  docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
+                    unstash 'source'
+                    try {
+                        sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --bc-api-key \$\{pc_user}::\$\{pc_password} --repo-id  billhoph/dso-demo --branch main'
+                        junit skipPublishingChecks: true, testResults: 'results.xml'
+                    } catch (err) {
+                        junit skipPublishingChecks: true, testResults: 'results.xml'
+                        throw err
+                    }
+                  }
+              }
+          }
+      }
+  }
   stages {
     stage('Build') {
       parallel {
@@ -61,4 +85,8 @@ pipeline {
     PC_USER = '81c2fe59-72a3-4e55-bb1d-9cff8ecc7bb7'
     PC_PASSWORD = 'TffwVyMCuNGC/byo68KCYQzUOW0='
   }
+  options {
+        preserveStashes()
+        timestamps()
+    }
 }
