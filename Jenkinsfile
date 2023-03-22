@@ -9,7 +9,7 @@ pipeline {
   }
   stage('Checkout') {
           steps {
-              git branch: 'main', url: ''https://github.com/billhoph/dso-demo''
+              git branch: 'main', url: 'https://github.com/billhoph/dso-demo'
               stash includes: '**/*', name: 'source'
           }
         }
