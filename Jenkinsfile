@@ -50,11 +50,11 @@ pipeline {
             } 
           }
         }
-      }
-      stage('Unit Tests') {
-        steps {
-          container(name: 'maven') {
-            sh 'mvn test'
+        stage('Unit Tests') {
+          steps {
+            container(name: 'maven') {
+              sh 'mvn test'
+            }
           }
         }
       }
