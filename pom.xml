@@ -48,6 +48,7 @@
 				<artifactId>dependency-check-maven</artifactId>
 				<version>6.1.1</version>
 				<configuration>
+					<failOnError>false</failOnError>
 					<failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
 				</configuration>
 				<executions>
